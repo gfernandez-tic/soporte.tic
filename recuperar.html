@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperar Clave - Soporte UTN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#003462] min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8">
+        <div class="flex flex-col items-center mb-6">
+            <div class="p-3 bg-orange-50 text-orange-600 rounded-full mb-4">
+                <i data-lucide="key-round" size="32"></i>
+            </div>
+            <h2 class="text-xl font-black text-slate-800 uppercase">Recuperar Acceso</h2>
+            <p class="text-slate-400 text-xs text-center mt-2">Se enviará un link de restauración a su correo institucional.</p>
+        </div>
+        <form class="space-y-4" onsubmit="event.preventDefault(); alert('Si el correo existe en nuestra base, recibirá un link en breve.'); window.location.href='index.html';">
+            <input type="email" placeholder="usuario@utn.edu.ar" required class="w-full px-4 py-3 bg-slate-50 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-800">
+            <button type="submit" class="w-full bg-[#003462] text-white font-bold py-4 rounded-xl uppercase tracking-widest text-xs">Enviar Instrucciones</button>
+            <a href="index.html" class="block text-center text-[10px] font-bold text-slate-400 uppercase hover:text-blue-800">Cancelar y Volver</a>
+        </form>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Soporte UTN - Mis Tickets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <nav class="bg-[#003462] p-4 text-white">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <a href="dashboard.html" class="hover:bg-white/10 p-2 rounded-lg"><i data-lucide="arrow-left"></i></a>
+                <h1 class="font-bold uppercase tracking-tight">Mis Tickets</h1>
+            </div>
+            <span class="text-[10px] font-bold bg-green-500/20 px-3 py-1 rounded-full border border-green-500/50">CONECTADO</span>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto p-6 md:p-12">
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
+            <div class="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                <h2 class="text-sm font-black text-slate-800 uppercase tracking-widest">Historial de Incidentes</h2>
+                <span class="text-[10px] text-slate-400 font-bold">USUARIO: <span id="userName">Cargando...</span></span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50 text-[10px] uppercase font-bold text-slate-500">
+                        <tr>
+                            <th class="px-6 py-4 tracking-widest">ID Ticket</th>
+                            <th class="px-6 py-4 tracking-widest">Asunto</th>
+                            <th class="px-6 py-4 tracking-widest">Fecha</th>
+                            <th class="px-6 py-4 tracking-widest text-center">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm divide-y divide-slate-100">
+                        <tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+                            <td class="px-6 py-4 font-bold text-blue-900">REC-20231024-0042</td>
+                            <td class="px-6 py-4 font-medium">Problema con conexión VPN Rectorado</td>
+                            <td class="px-6 py-4 text-slate-400">24 Oct 2023</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-1 rounded-md uppercase">En Proceso</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+                            <td class="px-6 py-4 font-bold text-blue-900">REC-20231020-0015</td>
+                            <td class="px-6 py-4 font-medium">Falla en acceso a servidor de archivos</td>
+                            <td class="px-6 py-4 text-slate-400">20 Oct 2023</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md uppercase">Resuelto</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-6 bg-slate-50 text-center">
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Fin del listado de incidentes</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('userName').textContent = localStorage.getItem('userRole') || 'Invitado';
+    </script>
+</body>
+</html>
