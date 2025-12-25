@@ -1,2 +1,2 @@
 # soporte.tic
-Maqueta Sistema de soporte UTB Rectorado
+Maqueta Sistema de soporte UTN Rectorado
