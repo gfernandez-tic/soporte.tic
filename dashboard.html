@@ -8,59 +8,90 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
-        .grid-soporte { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; padding: 20px; }
-        .card { padding: 40px; border-radius: 20px; text-align: center; color: white; text-decoration: none; font-weight: 900; text-transform: uppercase; transition: 0.3s; }
-        .card:hover { transform: scale(1.02); }
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            gap: 25px; 
+            max-width: 1000px; 
+            margin: 40px auto; 
+            padding: 20px; 
+        }
+        .card { 
+            padding: 40px; 
+            border-radius: 20px; 
+            text-align: center; 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            transition: 0.3s; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
-    <nav style="background: #003462; color: white; padding: 20px; display: flex; justify-content: space-between;">
-        <h1 style="font-weight: 900;">UTN - GESTIÓN TIC</h1>
-        <div id="statusBadge" style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 50px; font-size: 12px;"></div>
+    <nav style="background: #003462; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="font-weight: 900; letter-spacing: -1px;">SECRETARÍA TIC - UTN</h1>
+        <div id="statusBadge" style="padding: 5px 15px; border-radius: 50px; font-size: 11px; font-weight: bold;"></div>
     </nav>
 
-    <div class="max-w-6xl mx-auto mt-10">
-        <div id="contenedorPrincipal" class="grid-soporte">
-            <a href="ingreso.html" class="card" style="background-color: #dc2626;">
-                <i data-lucide="plus-circle" class="mx-auto mb-2"></i> Crear Ticket
-            </a>
-            <a href="ver_tickets.html" class="card" style="background-color: #64748b;">
-                <i data-lucide="list" class="mx-auto mb-2"></i> Ver mis Tickets
-            </a>
-            </div>
-    </div>
+    <div id="mainGrid" class="grid-container">
+        <a href="ingreso.html" class="card" style="background-color: #dc2626;">
+            <i data-lucide="plus-circle" size="32" style="margin-bottom: 10px;"></i>
+            Crear Ticket
+        </a>
+
+        <a href="ver_tickets.html" class="card" style="background-color: #64748b;">
+            <i data-lucide="list" size="32" style="margin-bottom: 10px;"></i>
+            Ver mis Tickets
+        </a>
+
+        </div>
 
     <script>
-        // 1. Ver qué dice la URL
-        const query = new URLSearchParams(window.location.search);
-        const miRol = query.get('role');
-        const contenedor = document.getElementById('contenedorPrincipal');
+        // 1. Obtener el rol de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const role = urlParams.get('role');
+        const grid = document.getElementById('mainGrid');
         const badge = document.getElementById('statusBadge');
 
-        // 2. Si es ADMIN, agregamos los dos botones faltantes manualmente
-        if (miRol === 'admin') {
-            badge.innerText = "SESIÓN: ADMINISTRADOR";
-            
-            // Botón Azul (Gestión)
+        // 2. Lógica para Administrador
+        if (role === 'admin') {
+            badge.innerText = "MODO: ADMINISTRADOR";
+            badge.style.backgroundColor = "#991b1b";
+
+            // INSERTAR BOTÓN AZUL (Gestión / Asignar)
             const btnAzul = document.createElement('a');
             btnAzul.href = "gestion_tkt.html";
             btnAzul.className = "card";
             btnAzul.style.backgroundColor = "#2563eb";
-            btnAzul.innerHTML = '<i data-lucide="settings" class="mx-auto mb-2"></i> Gestión Tickets';
-            contenedor.appendChild(btnAzul);
+            btnAzul.innerHTML = `
+                <i data-lucide="user-plus" size="32" style="margin-bottom: 10px;"></i>
+                Asignar Ticket
+            `;
+            grid.appendChild(btnAzul);
 
-            // Botón Negro (Panel)
+            // INSERTAR BOTÓN NEGRO (Panel de Control)
             const btnNegro = document.createElement('a');
             btnNegro.href = "Panel.html";
             btnNegro.className = "card";
             btnNegro.style.backgroundColor = "#000000";
-            btnNegro.innerHTML = '<i data-lucide="bar-chart" class="mx-auto mb-2"></i> Panel Control';
-            contenedor.appendChild(btnNegro);
+            btnNegro.innerHTML = `
+                <i data-lucide="layout-dashboard" size="32" style="margin-bottom: 10px;"></i>
+                Panel Control
+            `;
+            grid.appendChild(btnNegro);
 
         } else {
-            badge.innerText = "SESIÓN: USUARIO FINAL";
+            // Lógica para Usuario
+            badge.innerText = "MODO: USUARIO FINAL";
+            badge.style.backgroundColor = "#166534";
         }
-        
+
+        // 3. Renderizar iconos
         lucide.createIcons();
     </script>
 </body>
