@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Mesa de Soporte UTN - Gestión</title>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <nav class="bg-[#003462] p-4 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="font-bold uppercase tracking-tighter">Panel de Gestión TIC - Rectorado</h1>
+            <span class="text-xs bg-blue-500/30 px-3 py-1 rounded-full border border-blue-400">soporte@rec.utn.edu.ar</span>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto p-8">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-slate-50 text-slate-400 text-[10px] uppercase font-bold tracking-widest">
+                    <tr>
+                        <th class="p-4 border-b">ID Ticket</th>
+                        <th class="p-4 border-b">Solicitante / Origen</th>
+                        <th class="p-4 border-b">Problema</th>
+                        <th class="p-4 border-b">Derivar a Sector</th>
+                        <th class="p-4 border-b text-right">Acción</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm">
+                    <tr class="border-b hover:bg-slate-50 transition">
+                        <td class="p-4 font-mono font-bold text-blue-700">REC-20251224-0045</td>
+                        <td class="p-4">
+                            <div class="font-bold">García, Juan</div>
+                            <div class="text-[10px] text-slate-500">Rectorado - Sec. Académica</div>
+                        </td>
+                        <td class="p-4">
+                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">VPN</span>
+                            <p class="text-xs mt-1 text-slate-600">Error de autenticación...</p>
+                        </td>
+                        <td class="p-4">
+                            <select class="w-full p-2 border rounded-lg text-xs focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                                <option disabled selected>Seleccionar Sector...</option>
+                                <option>Infraestructura</option>
+                                <option>Telefonía</option>
+                                <option>SYSACAD/SYSADMIN</option>
+                                <option>DASUTEN</option>
+                                <option>Equipamiento usuario</option>
+                            </select>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button class="bg-[#003462] text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-blue-800 transition shadow-md">
+                                Derivar y Notificar
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr class="border-b hover:bg-slate-50 transition">
+                        <td class="p-4 font-mono font-bold text-blue-700">FR-20251224-0046</td>
+                        <td class="p-4">
+                            <div class="font-bold">López, María</div>
+                            <div class="text-[10px] text-slate-500">FR Buenos Aires - Sec. TIC</div>
+                        </td>
+                        <td class="p-4">
+                            <span class="bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-[10px] font-bold">RUT</span>
+                            <p class="text-xs mt-1 text-slate-600">Pérdida de paquetes en enlace...</p>
+                        </td>
+                        <td class="p-4">
+                            <select class="w-full p-2 border rounded-lg text-xs focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                                <option disabled selected>Seleccionar Sector...</option>
+                                <option>Infraestructura</option>
+                                <option>Telefonía</option>
+                                <option>SYSACAD/SYSADMIN</option>
+                                <option>DASUTEN</option>
+                                <option>Equipamiento usuario</option>
+                            </select>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button class="bg-[#003462] text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-blue-800 transition shadow-md">
+                                Derivar y Notificar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

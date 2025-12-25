@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte Técnico UTN - Reclamos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-10 px-4">
+
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-white shadow-2xl rounded-3xl overflow-hidden border border-slate-200">
+            
+            <div class="bg-[#003462] p-8 text-white">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-center md:text-left">
+                        <h1 class="text-3xl font-extrabold uppercase tracking-tighter text-white">UTN Secretaría TIC</h1>
+                        <p class="text-blue-200 font-light italic">Gestión de Incidentes y Reclamos</p>
+                    </div>
+                </div>
+            </div>
+
+            <form id="ticketForm" class="p-8 md:p-12 space-y-8">
+                
+                <section class="space-y-6">
+                    <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+                        <i data-lucide="user-check" class="text-[#003462]" size="20"></i>
+                        <h2 class="text-sm font-bold text-[#003462] uppercase">Datos del Solicitante</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Apellido y Nombre</label>
+                            <input type="text" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#003462] outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Legajo</label>
+                            <input type="text" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#003462] outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">e-mail Institucional (@*.utn.edu.ar)</label>
+                        <input type="email" id="email" required placeholder="usuario@frba.utn.edu.ar"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#003462] outline-none transition-all">
+                        <p id="emailError" class="text-red-600 text-[10px] mt-2 hidden font-bold">Debe ser un correo institucional UTN.</p>
+                    </div>
+                </section>
+
+                <section class="space-y-6">
+                    <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+                        <i data-lucide="map-pin" class="text-[#003462]" size="20"></i>
+                        <h2 class="text-sm font-bold text-[#003462] uppercase">Sede y Dependencia</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Facultad Regional / Sede</label>
+                            <select id="sedeSelect" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#003462] outline-none">
+                                <option value="rectorado">Rectorado</option>
+                                <optgroup label="Facultades Regionales / Institutos">
+                                    <option value="fr">FR Avellaneda</option> <option value="fr">FR Bahía Blanca</option>
+                                    <option value="fr">FR Buenos Aires</option> <option value="fr">FR Chubut</option>
+                                    <option value="fr">FR Concepción del Uruguay</option> <option value="fr">FR Concordia</option>
+                                    <option value="fr">FR Córdoba</option> <option value="fr">FR Delta</option>
+                                    <option value="fr">FR General Pacheco</option> <option value="fr">FR Haedo</option>
+                                    <option value="fr">FR La Plata</option> <option value="fr">FR La Rioja</option>
+                                    <option value="fr">FR Lincoln</option> <option value="fr">FR Mendoza</option>
+                                    <option value="fr">FR Neuquén</option> <option value="fr">FR Paraná</option>
+                                    <option value="fr">FR Rafaela</option> <option value="fr">FR Reconquista</option>
+                                    <option value="fr">FR Resistencia</option> <option value="fr">FR Río Gallegos</option>
+                                    <option value="fr">FR Rosario</option> <option value="fr">FR San Francisco</option>
+                                    <option value="fr">FR San Nicolás</option> <option value="fr">FR San Rafael</option>
+                                    <option value="fr">FR Santa Cruz</option> <option value="fr">FR Santa Fe</option>
+                                    <option value="fr">FR Santiago del Estero</option> <option value="fr">FR Trenque Lauquen</option>
+                                    <option value="fr">FR Tucumán</option> <option value="fr">FR Venado Tuerto</option>
+                                    <option value="fr">FR Villa María</option> <option value="fr">INSPT</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Secretaría</label>
+                            <select required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#003462] outline-none">
+                                <option value="" disabled selected>Seleccionar...</option>
+                                <option>Secretaría Académica</option>
+                                <option>Secretaría de Extensión Universitaria</option>
+                                <option>Secretaría de Ciencia y Tecnología</option>
+                                <option>Secretaría de Asuntos Estudiantiles</option>
+                                <option>Secretaría Administrativa</option>
+                                <option>Secretaría TIC</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="space-y-6">
+                    <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+                        <i data-lucide="wrench" class="text-[#003462]" size="20"></i>
+                        <h2 class="text-sm font-bold text-[#003462] uppercase">Detalle del Reclamo</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Tipo de Problema</label>
+                            <select id="problemaSelect" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#003462] outline-none">
+                                </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Adjuntar Archivo (Max 2MB)</label>
+                            <input type="file" id="archivo" class="block w-full text-xs text-slate-400
+                                file:mr-4 file:py-2.5 file:px-4
+                                file:rounded-xl file:border-0
+                                file:text-xs file:font-bold
+                                file:bg-[#003462] file:text-white
+                                hover:file:bg-blue-800 cursor-pointer">
+                            <p id="fileError" class="text-red-600 text-[10px] mt-2 hidden font-bold">Archivo excede los 2MB.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <label class="block text-xs font-bold text-slate-500 uppercase">Descripción detallada (máx 256 car.)</label>
+                            <span id="charCount" class="text-[10px] font-bold text-slate-400">0 / 256</span>
+                        </div>
+                        <textarea id="descripcion" maxlength="256" required rows="4" 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#003462] outline-none resize-none"></textarea>
+                    </div>
+                </section>
+
+                <button type="submit" class="w-full bg-[#003462] text-white font-bold py-4 rounded-2xl hover:bg-blue-900 transition-all shadow-xl shadow-blue-900/10 uppercase tracking-widest text-sm flex items-center justify-center gap-3">
+                    <i data-lucide="send"></i> Generar Ticket Oficial
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const sedeSelect = document.getElementById('sedeSelect');
+        const problemaSelect = document.getElementById('problemaSelect');
+        const descInput = document.getElementById('descripcion');
+        const charCount = document.getElementById('charCount');
+        const fileInput = document.getElementById('archivo');
+
+        // Definición de problemas según origen
+        const problemasRectorado = [
+            "Acceso a pagina web",
+            "Error de VPN",
+            "Problema de acceso a WIFI",
+            "Equipo sin conexión",
+            "Telefonía",
+            "SYSACAD",
+            "SYSADMIN"
+        ];
+
+        const problemasRegionales = [
+            "Enlace RUT caído",
+            "Enlace RUT con pérdida de paquetes",
+            "Enlace RUT con microcortes",
+            "Solicitud de apertura/bloqueo de puertos",
+            "Acceso a SYSACAD/SYSADMIN",
+            "Acceso a DASUTEN Central",
+            "Problemas DNS",
+            "Problemas CVG"
+        ];
+
+        function actualizarProblemas() {
+            const sede = sedeSelect.value;
+            const lista = (sede === 'rectorado') ? problemasRectorado : problemasRegionales;
+            
+            problemaSelect.innerHTML = '<option value="" disabled selected>Seleccionar problema...</option>';
+            lista.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p;
+                opt.textContent = p;
+                problemaSelect.appendChild(opt);
+            });
+        }
+
+        // Ejecutar al cargar y al cambiar sede
+        sedeSelect.addEventListener('change', actualizarProblemas);
+        actualizarProblemas();
+
+        // Contador de caracteres
+        descInput.addEventListener('input', () => {
+            charCount.textContent = `${descInput.value.length} / 256`;
+        });
+
+        // Validación final
+        document.getElementById('ticketForm').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value.toLowerCase();
+            const regexUTN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]*utn\.edu\.ar$/;
+            
+            if (!regexUTN.test(email)) {
+                e.preventDefault();
+                document.getElementById('emailError').classList.remove('hidden');
+                return;
+            }
+
+            if (fileInput.files.length > 0 && fileInput.files[0].size > 2097152) {
+                e.preventDefault();
+                document.getElementById('fileError').classList.remove('hidden');
+                return;
+            }
+
+            alert("Ticket validado. Iniciando envío a Rectorado/Regional...");
+        });
+    </script>
+</body>
+</html>

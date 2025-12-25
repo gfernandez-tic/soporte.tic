@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Proyecto Soporte UTN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col items-center justify-center p-6">
+
+    <div class="max-w-4xl w-full">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-black text-[#003462] uppercase tracking-tighter mb-2">
+                Sistema de Gestión de Incidentes TIC
+            </h1>
+            <p class="text-slate-500 text-lg font-light">
+                Universidad Tecnológica Nacional - Rectorado
+            </p>
+            <div class="w-24 h-1 bg-[#003462] mx-auto mt-4"></div>
+        </div>
+
+        <div class="bg-white shadow-2xl rounded-3xl p-8 md:p-12 border border-slate-200">
+            <h2 class="text-xl font-bold text-slate-800 mb-8 text-center uppercase tracking-widest">
+                Acceso a Módulos del Proyecto
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="flex flex-col">
+                    <a href="ingreso.html" target="_blank" class="flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-lg transition-all shadow-lg hover:-translate-y-1 active:scale-95 text-center uppercase tracking-wider">
+                        Crear Ticket
+                    </a>
+                    <p class="text-[10px] text-slate-400 mt-2 px-2 italic text-center">Formulario de ingreso para usuarios</p>
+                </div>
+
+                <div class="flex flex-col">
+                    <a href="gestion_tkt.html" target="_blank" class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-all shadow-lg hover:-translate-y-1 active:scale-95 text-center uppercase tracking-wider">
+                        Asignar Ticket
+                    </a>
+                    <p class="text-[10px] text-slate-400 mt-2 px-2 italic text-center">Clasificación y derivación (Mesa de Soporte)</p>
+                </div>
+
+                <div class="flex flex-col">
+                    <a href="tratamiento.html" target="_blank" class="flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-lg transition-all shadow-lg hover:-translate-y-1 active:scale-95 text-center uppercase tracking-wider">
+                        Gestión Ticket
+                    </a>
+                    <p class="text-[10px] text-slate-400 mt-2 px-2 italic text-center">Tratamiento y resolución por sectores</p>
+                </div>
+
+                <div class="flex flex-col">
+                    <a href="Panel.html" target="_blank" class="flex items-center justify-center bg-black hover:bg-slate-800 text-white font-bold py-4 px-6 rounded-lg transition-all shadow-lg hover:-translate-y-1 active:scale-95 text-center uppercase tracking-wider">
+                        Panel de Control
+                    </a>
+                    <p class="text-[10px] text-slate-400 mt-2 px-2 italic text-center">Métricas, estadísticas y auditoría</p>
+                </div>
+
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-slate-100 text-center">
+                 <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Arquitectura de la Solución</h3>
+                 
+            </div>
+        </div>
+
+        <footer class="mt-8 text-center">
+            <p class="text-xs text-slate-400 font-medium italic">
+                Nota: Asegúrese de que los archivos .html se encuentren en el mismo directorio.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
