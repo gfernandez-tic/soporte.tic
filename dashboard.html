@@ -8,90 +8,57 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
-        .grid-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-            gap: 25px; 
-            max-width: 1000px; 
-            margin: 40px auto; 
-            padding: 20px; 
-        }
-        .card { 
-            padding: 40px; 
-            border-radius: 20px; 
-            text-align: center; 
-            color: white; 
-            text-decoration: none; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            transition: 0.3s; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-        }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; max-width: 1000px; margin: 40px auto; padding: 20px; }
+        .btn-card { padding: 45px 20px; border-radius: 24px; text-align: center; color: white; text-decoration: none; font-weight: 900; text-transform: uppercase; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        .btn-card i { margin-bottom: 12px; }
     </style>
 </head>
 <body>
-    <nav style="background: #003462; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
-        <h1 style="font-weight: 900; letter-spacing: -1px;">SECRETARÍA TIC - UTN</h1>
-        <div id="statusBadge" style="padding: 5px 15px; border-radius: 50px; font-size: 11px; font-weight: bold;"></div>
+    <nav class="bg-[#003462] text-white p-5 flex justify-between items-center shadow-lg">
+        <h1 class="font-black tracking-tighter uppercase">UTN - Gestión TIC</h1>
+        <div id="roleIndicator" class="text-[10px] px-4 py-1.5 rounded-full font-black uppercase"></div>
     </nav>
 
-    <div id="mainGrid" class="grid-container">
-        <a href="ingreso.html" class="card" style="background-color: #dc2626;">
-            <i data-lucide="plus-circle" size="32" style="margin-bottom: 10px;"></i>
-            Crear Ticket
-        </a>
-
-        <a href="ver_tickets.html" class="card" style="background-color: #64748b;">
-            <i data-lucide="list" size="32" style="margin-bottom: 10px;"></i>
-            Ver mis Tickets
-        </a>
-
+    <div id="mainGrid" class="card-container">
         </div>
 
     <script>
-        // 1. Obtener el rol de la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const role = urlParams.get('role');
+        const params = new URLSearchParams(window.location.search);
+        const role = params.get('role');
         const grid = document.getElementById('mainGrid');
-        const badge = document.getElementById('statusBadge');
+        const badge = document.getElementById('roleIndicator');
 
-        // 2. Lógica para Administrador
         if (role === 'admin') {
-            badge.innerText = "MODO: ADMINISTRADOR";
+            badge.innerText = "SESIÓN: ADMINISTRADOR";
             badge.style.backgroundColor = "#991b1b";
 
-            // INSERTAR BOTÓN AZUL (Gestión / Asignar)
-            const btnAzul = document.createElement('a');
-            btnAzul.href = "gestion_tkt.html";
-            btnAzul.className = "card";
-            btnAzul.style.backgroundColor = "#2563eb";
-            btnAzul.innerHTML = `
-                <i data-lucide="user-plus" size="32" style="margin-bottom: 10px;"></i>
-                Asignar Ticket
-            `;
-            grid.appendChild(btnAzul);
+            // 1. ROJO: Crear ticket
+            grid.innerHTML += `<a href="ingreso.html" class="btn-card" style="background-color: #dc2626;"><i data-lucide="plus-circle" size="32"></i>Crear Ticket</a>`;
+            
+            // 2. AZUL: Asignar ticket
+            grid.innerHTML += `<a href="gestion_tkt.html" class="btn-card" style="background-color: #2563eb;"><i data-lucide="user-plus" size="32"></i>Asignar Ticket</a>`;
+            
+            // 3. VERDE: Gestión ticket (tratamiento)
+            grid.innerHTML += `<a href="tratamiento.html" class="btn-card" style="background-color: #16a34a;"><i data-lucide="clipboard-list" size="32"></i>Gestión Ticket</a>`;
+            
+            // 4. NEGRO: Panel de control
+            grid.innerHTML += `<a href="Panel.html" class="btn-card" style="background-color: #000000;"><i data-lucide="layout-dashboard" size="32"></i>Panel de Control</a>`;
 
-            // INSERTAR BOTÓN NEGRO (Panel de Control)
-            const btnNegro = document.createElement('a');
-            btnNegro.href = "Panel.html";
-            btnNegro.className = "card";
-            btnNegro.style.backgroundColor = "#000000";
-            btnNegro.innerHTML = `
-                <i data-lucide="layout-dashboard" size="32" style="margin-bottom: 10px;"></i>
-                Panel Control
-            `;
-            grid.appendChild(btnNegro);
-
-        } else {
-            // Lógica para Usuario
-            badge.innerText = "MODO: USUARIO FINAL";
+        } else if (role === 'usuario') {
+            badge.innerText = "SESIÓN: USUARIO FINAL";
             badge.style.backgroundColor = "#166534";
+
+            // 1. ROJO: Crear ticket
+            grid.innerHTML += `<a href="ingreso.html" class="btn-card" style="background-color: #dc2626;"><i data-lucide="plus-circle" size="32"></i>Crear Ticket</a>`;
+            
+            // 2. NARANJA: Ver mis tickets
+            grid.innerHTML += `<a href="ver_tickets.html" class="btn-card" style="background-color: #f97316;"><i data-lucide="list" size="32"></i>Ver Mis Tickets</a>`;
+        } else {
+            // Si no hay rol, vuelve al login
+            window.location.href = "index.html";
         }
 
-        // 3. Renderizar iconos
         lucide.createIcons();
     </script>
 </body>
