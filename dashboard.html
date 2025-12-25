@@ -7,97 +7,83 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        /* Los elementos de admin están ocultos por defecto */
-        .admin-only { display: none !important; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        .btn-card { 
+            transition: all 0.3s ease; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 40px; 
+            border-radius: 24px; 
+            color: white; 
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .btn-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); }
+        .admin-only { display: none; } /* Oculto por defecto */
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen">
+<body>
 
-    <nav class="bg-[#003462] p-4 text-white shadow-xl">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <i data-lucide="layout-dashboard" size="20"></i>
-                <h1 class="font-black uppercase tracking-tighter text-lg">Secretaría TIC</h1>
-            </div>
-            <div class="flex items-center gap-4">
-                <span id="roleBadge" class="text-[10px] px-3 py-1 rounded-full font-bold uppercase border border-white/20">
-                    Verificando...
-                </span>
-                <a href="index.html" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1 rounded-lg transition-all">Salir</a>
-            </div>
-        </div>
+    <nav style="background-color: #003462; padding: 20px; color: white; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="font-weight: 900; text-transform: uppercase; margin: 0;">Secretaría TIC</h1>
+        <div id="roleBadge" style="font-size: 10px; font-weight: bold; padding: 5px 15px; border-radius: 50px; background-color: rgba(255,255,255,0.1);">Cargando...</div>
     </nav>
 
-    <main class="max-w-5xl mx-auto p-8 md:p-16">
-        <header class="text-center mb-12">
-            <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tight">Sistema de Gestión de Incidentes</h2>
-            <p class="text-slate-500 text-sm mt-2">Bienvenido al portal de soporte técnico institucional</p>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <main style="max-width: 1000px; margin: 50px auto; padding: 0 20px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
             
-            <div class="group">
-                <a href="ingreso.html" class="flex flex-col items-center justify-center bg-white border-2 border-transparent hover:border-red-500 p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 h-full">
-                    <div class="p-4 bg-red-50 text-red-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-                        <i data-lucide="plus-circle" size="32"></i>
-                    </div>
-                    <span class="font-black text-slate-800 uppercase tracking-widest text-sm text-center">Crear Ticket</span>
-                    <span class="text-[10px] text-slate-400 mt-2 text-center uppercase font-bold">Nueva solicitud de soporte</span>
-                </a>
-            </div>
+            <a href="ingreso.html" class="btn-card" style="background-color: #dc2626;">
+                <i data-lucide="plus-circle" style="margin-bottom: 15px;"></i>
+                <span style="font-weight: 900; text-transform: uppercase;">Crear Ticket</span>
+                <small style="opacity: 0.8; font-size: 10px; margin-top: 10px;">NUEVA SOLICITUD</small>
+            </a>
 
-            <div class="group">
-                <a href="ver_tickets.html" class="flex flex-col items-center justify-center bg-white border-2 border-transparent hover:border-slate-500 p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 h-full">
-                    <div class="p-4 bg-slate-50 text-slate-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-                        <i data-lucide="list" size="32"></i>
-                    </div>
-                    <span class="font-black text-slate-800 uppercase tracking-widest text-sm text-center">Ver mis Tickets</span>
-                    <span class="text-[10px] text-slate-400 mt-2 text-center uppercase font-bold">Estado de mis reclamos</span>
-                </a>
-            </div>
+            <a href="ver_tickets.html" class="btn-card" style="background-color: #64748b;">
+                <i data-lucide="list" style="margin-bottom: 15px;"></i>
+                <span style="font-weight: 900; text-transform: uppercase;">Ver mis Tickets</span>
+                <small style="opacity: 0.8; font-size: 10px; margin-top: 10px;">MIS RECLAMOS</small>
+            </a>
 
-            <div id="adminPanel1" class="admin-only group">
-                <a href="gestion_tkt.html" class="flex flex-col items-center justify-center bg-white border-2 border-transparent hover:border-blue-600 p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 h-full">
-                    <div class="p-4 bg-blue-50 text-blue-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-                        <i data-lucide="settings" size="32"></i>
-                    </div>
-                    <span class="font-black text-slate-800 uppercase tracking-widest text-sm text-center">Gestión de Tickets</span>
-                    <span class="text-[10px] text-slate-400 mt-2 text-center uppercase font-bold">Mesa de ayuda institucional</span>
-                </a>
-            </div>
+            <a id="panelAdmin1" href="gestion_tkt.html" class="btn-card admin-only" style="background-color: #2563eb;">
+                <i data-lucide="settings" style="margin-bottom: 15px;"></i>
+                <span style="font-weight: 900; text-transform: uppercase;">Gestión de Tickets</span>
+                <small style="opacity: 0.8; font-size: 10px; margin-top: 10px;">MESA DE AYUDA</small>
+            </a>
 
-            <div id="adminPanel2" class="admin-only group">
-                <a href="Panel.html" class="flex flex-col items-center justify-center bg-white border-2 border-transparent hover:border-black p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 h-full">
-                    <div class="p-4 bg-slate-100 text-black rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-                        <i data-lucide="bar-chart-3" size="32"></i>
-                    </div>
-                    <span class="font-black text-slate-800 uppercase tracking-widest text-sm text-center">Panel de Control</span>
-                    <span class="text-[10px] text-slate-400 mt-2 text-center uppercase font-bold">Métricas y estadísticas</span>
-                </a>
-            </div>
+            <a id="panelAdmin2" href="Panel.html" class="btn-card admin-only" style="background-color: #0f172a;">
+                <i data-lucide="bar-chart-3" style="margin-bottom: 15px;"></i>
+                <span style="font-weight: 900; text-transform: uppercase;">Panel de Control</span>
+                <small style="opacity: 0.8; font-size: 10px; margin-top: 10px;">ESTADÍSTICAS</small>
+            </a>
 
         </div>
     </main>
 
-    <footer class="fixed bottom-0 w-full p-4 text-center">
-        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em]">Universidad Tecnológica Nacional - Rectorado</p>
-    </footer>
-
     <script>
-        // 1. Inicializar iconos
         lucide.createIcons();
 
-        // 2. Lógica de Roles por URL
-        function applyRole() {
-            const params = new URLSearchParams(window.location.search);
-            const role = params.get('role');
-            
-            const badge = document.getElementById('roleBadge');
-            const adminItems = document.querySelectorAll('.admin-only');
+        // LÓGICA DE DETECCIÓN AGRESIVA
+        const params = new URLSearchParams(window.location.search);
+        const user = params.get('user'); 
+        
+        const badge = document.getElementById('roleBadge');
+        const btnAzul = document.getElementById('panelAdmin1');
+        const btnNegro = document.getElementById('panelAdmin2');
 
-            console.log("Rol en sesión:", role);
-
-            if (role === 'admin') {
-                // Configurar Inter
+        if (user === 'admin') {
+            badge.innerText = "MODO: ADMINISTRADOR";
+            badge.style.backgroundColor = "#b91c1c";
+            // Forzamos la aparición de los botones
+            btnAzul.style.display = "flex";
+            btnNegro.style.display = "flex";
+        } else {
+            badge.innerText = "MODO: USUARIO FINAL";
+            badge.style.backgroundColor = "#15803d";
+        }
+    </script>
+</body>
+</html>
