@@ -7,6 +7,34 @@
     <title>Mesa de Soporte UTN - Gestión</title>
 </head>
 <body class="bg-slate-50 min-h-screen">
+<div class="fixed top-4 right-4 flex gap-2 z-50">
+    <button onclick="volverDashboard()" class="w-12 h-12 bg-white text-[#003462] rounded-full shadow-xl flex items-center justify-center hover:bg-slate-100 transition-all border border-slate-200" title="Volver al Dashboard">
+        <i data-lucide="arrow-left"></i>
+    </button>
+    
+    <a href="index.html" class="w-12 h-12 bg-red-600 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-red-700 transition-all" title="Cerrar Sesión">
+        <i data-lucide="log-out"></i>
+    </a>
+</div>
+
+<script>
+    function volverDashboard() {
+        // Detecta el rol actual de la URL para no perderlo al volver
+        const params = new URLSearchParams(window.location.search);
+        const role = params.get('role') || params.get('user'); // Soporta ambos nombres de parámetro
+        
+        if (role) {
+            window.location.href = "dashboard.html?role=" + role;
+        } else {
+            // Si por alguna razón no hay rol, vuelve al dashboard limpio o al login
+            window.location.href = "dashboard.html";
+        }
+    }
+    // Asegurar que los iconos se carguen
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+</script>
     <nav class="bg-[#003462] p-4 text-white shadow-lg">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <h1 class="font-bold uppercase tracking-tighter">Panel de Gestión TIC - Rectorado</h1>

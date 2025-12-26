@@ -2,63 +2,162 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soporte UTN - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
-        .card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; max-width: 1000px; margin: 40px auto; padding: 20px; }
-        .btn-card { padding: 45px 20px; border-radius: 24px; text-align: center; color: white; text-decoration: none; font-weight: 900; text-transform: uppercase; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
-        .btn-card i { margin-bottom: 12px; }
+        
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+            gap: 25px; 
+            max-width: 1100px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
+        }
+
+        .btn-card { 
+            padding: 50px 20px; 
+            border-radius: 24px; 
+            text-align: center; 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+        }
+
+        .btn-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .btn-card i { margin-bottom: 15px; }
     </style>
 </head>
-<body>
-    <nav class="bg-[#003462] text-white p-5 flex justify-between items-center shadow-lg">
-        <h1 class="font-black tracking-tighter uppercase">UTN - Gestión TIC</h1>
-        <div id="roleIndicator" class="text-[10px] px-4 py-1.5 rounded-full font-black uppercase"></div>
+<body class="min-h-screen">
+
+    <nav class="bg-[#003462] text-white p-4 shadow-xl sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-white/10 p-2 rounded-xl">
+                    <i data-lucide="shield-check"></i>
+                </div>
+                <div>
+                    <h1 class="font-black tracking-tighter uppercase text-lg leading-none">Secretaría TIC</h1>
+                    <p class="text-[9px] uppercase tracking-widest opacity-60">Rectorado UTN</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <div id="roleBadge" class="hidden sm:block text-[10px] px-4 py-1.5 rounded-full font-black uppercase tracking-wider shadow-inner">
+                    Cargando Sesión...
+                </div>
+
+                <a href="index.html" 
+                   class="w-11 h-11 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:rotate-90" 
+                   title="Cerrar Sesión">
+                    <i data-lucide="log-out" size="20"></i>
+                </a>
+            </div>
+        </div>
     </nav>
 
-    <div id="mainGrid" class="card-container">
+    <header class="text-center mt-12 mb-6">
+        <h2 class="text-slate-800 text-3xl font-black uppercase tracking-tighter">Panel de Gestión</h2>
+        <p class="text-slate-500 text-sm">Seleccione la operación que desea realizar</p>
+    </header>
+
+    <div id="mainGrid" class="grid-container">
         </div>
 
+    <footer class="mt-20 pb-10 text-center">
+        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">© 2025 Universidad Tecnológica Nacional</p>
+    </footer>
+
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const role = params.get('role');
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // 1. Capturar Rol de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const role = urlParams.get('role');
+        
         const grid = document.getElementById('mainGrid');
-        const badge = document.getElementById('roleIndicator');
+        const badge = document.getElementById('roleBadge');
 
+        // Limpieza de seguridad
+        grid.innerHTML = "";
+
+        // 2. Lógica de construcción de interfaz
         if (role === 'admin') {
-            badge.innerText = "SESIÓN: ADMINISTRADOR";
-            badge.style.backgroundColor = "#991b1b";
+            // Configurar Badge Admin
+            badge.innerText = "ADMINISTRADOR";
+            badge.className = "hidden sm:block text-[10px] px-4 py-1.5 rounded-full font-black uppercase tracking-wider bg-red-800 text-white";
 
-            // 1. ROJO: Crear ticket
-            grid.innerHTML += `<a href="ingreso.html" class="btn-card" style="background-color: #dc2626;"><i data-lucide="plus-circle" size="32"></i>Crear Ticket</a>`;
+            // BOTÓN 1: ROJO - Crear Ticket
+            grid.innerHTML += `
+                <a href="ingreso.html?role=admin" class="btn-card" style="background-color: #dc2626;">
+                    <i data-lucide="plus-circle" size="40"></i>
+                    <span>Crear Ticket</span>
+                </a>`;
             
-            // 2. AZUL: Asignar ticket
-            grid.innerHTML += `<a href="gestion_tkt.html" class="btn-card" style="background-color: #2563eb;"><i data-lucide="user-plus" size="32"></i>Asignar Ticket</a>`;
+            // BOTÓN 2: AZUL - Asignar Ticket
+            grid.innerHTML += `
+                <a href="gestion_tkt.html?role=admin" class="btn-card" style="background-color: #2563eb;">
+                    <i data-lucide="user-plus" size="40"></i>
+                    <span>Asignar Ticket</span>
+                </a>`;
             
-            // 3. VERDE: Gestión ticket (tratamiento)
-            grid.innerHTML += `<a href="tratamiento.html" class="btn-card" style="background-color: #16a34a;"><i data-lucide="clipboard-list" size="32"></i>Gestión Ticket</a>`;
+            // BOTÓN 3: VERDE - Gestión Ticket (Tratamiento)
+            grid.innerHTML += `
+                <a href="tratamiento.html?role=admin" class="btn-card" style="background-color: #16a34a;">
+                    <i data-lucide="clipboard-check" size="40"></i>
+                    <span>Gestión Ticket</span>
+                </a>`;
             
-            // 4. NEGRO: Panel de control
-            grid.innerHTML += `<a href="Panel.html" class="btn-card" style="background-color: #000000;"><i data-lucide="layout-dashboard" size="32"></i>Panel de Control</a>`;
+            // BOTÓN 4: NEGRO - Panel de Control
+            grid.innerHTML += `
+                <a href="Panel.html?role=admin" class="btn-card" style="background-color: #000000;">
+                    <i data-lucide="bar-chart-3" size="40"></i>
+                    <span>Panel de Control</span>
+                </a>`;
 
         } else if (role === 'usuario') {
-            badge.innerText = "SESIÓN: USUARIO FINAL";
-            badge.style.backgroundColor = "#166534";
+            // Configurar Badge Usuario
+            badge.innerText = "USUARIO FINAL";
+            badge.className = "hidden sm:block text-[10px] px-4 py-1.5 rounded-full font-black uppercase tracking-wider bg-green-700 text-white";
 
-            // 1. ROJO: Crear ticket
-            grid.innerHTML += `<a href="ingreso.html" class="btn-card" style="background-color: #dc2626;"><i data-lucide="plus-circle" size="32"></i>Crear Ticket</a>`;
+            // BOTÓN 1: ROJO - Crear Ticket
+            grid.innerHTML += `
+                <a href="ingreso.html?role=usuario" class="btn-card" style="background-color: #dc2626;">
+                    <i data-lucide="plus-circle" size="40"></i>
+                    <span>Crear Ticket</span>
+                </a>`;
             
-            // 2. NARANJA: Ver mis tickets
-            grid.innerHTML += `<a href="ver_tickets.html" class="btn-card" style="background-color: #f97316;"><i data-lucide="list" size="32"></i>Ver Mis Tickets</a>`;
+            // BOTÓN 2: NARANJA - Ver Mis Tickets
+            grid.innerHTML += `
+                <a href="ver_tickets.html?role=usuario" class="btn-card" style="background-color: #f97316;">
+                    <i data-lucide="search" size="40"></i>
+                    <span>Ver Mis Tickets</span>
+                </a>`;
+
         } else {
-            // Si no hay rol, vuelve al login
+            // Si no hay rol válido, expulsar al login
             window.location.href = "index.html";
         }
 
+        // Renderizar iconos nuevamente para los elementos inyectados
         lucide.createIcons();
     </script>
 </body>

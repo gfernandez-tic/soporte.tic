@@ -3,114 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin - Soporte UTN</title>
+    <title>Soporte UTN - Panel de Estado</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    </style>
 </head>
-<body class="bg-slate-100 font-sans min-h-screen flex">
+<body>
 
-    <aside class="w-64 bg-[#003462] text-white hidden md:flex flex-col">
-        <div class="p-6 border-b border-white/10 text-center">
-            <h1 class="text-xl font-bold tracking-tighter uppercase">UTN TIC</h1>
-        </div>
-        <nav class="flex-1 p-4 space-y-2 mt-4">
-            <a href="#" class="flex items-center gap-3 p-3 bg-white/10 rounded-xl"><i data-lucide="layout-dashboard"></i> Dashboard</a>
-            <a href="#" class="flex items-center gap-3 p-3 hover:bg-white/5 rounded-xl transition"><i data-lucide="ticket"></i> Tickets Activos</a>
-            <a href="#" class="flex items-center gap-3 p-3 hover:bg-white/5 rounded-xl transition"><i data-lucide="users"></i> Técnicos</a>
-            <a href="#" class="flex items-center gap-3 p-3 hover:bg-white/5 rounded-xl transition"><i data-lucide="bar-chart"></i> Reportes</a>
-        </nav>
-        <div class="p-6 border-t border-white/10">
-            <p class="text-[10px] opacity-50 uppercase font-bold">Sesión: Admin_TIC</p>
-        </div>
-    </aside>
+    <div class="fixed top-4 right-4 flex gap-3 z-50">
+        <button onclick="irAlDashboard()" class="w-12 h-12 bg-white text-[#003462] rounded-full shadow-xl flex items-center justify-center border border-slate-200 hover:bg-slate-50 transition-all">
+            <i data-lucide="arrow-left"></i>
+        </button>
+        <a href="index.html" class="w-12 h-12 bg-red-600 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-red-700 transition-all">
+            <i data-lucide="log-out"></i>
+        </a>
+    </div>
 
-    <main class="flex-1 p-8 overflow-y-auto">
+    <nav class="bg-[#003462] text-white p-6 shadow-md mb-8">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-xl font-black uppercase tracking-tighter">Panel de Monitoreo de Tickets</h1>
+            <p class="text-[10px] uppercase tracking-[0.2em] opacity-70 font-bold">Estado en tiempo real de la Secretaría TIC</p>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6">
         
-        <header class="flex justify-between items-center mb-10">
-            <div>
-                <h2 class="text-3xl font-extrabold text-slate-800">Panel de Control</h2>
-                <p class="text-slate-500 italic">Monitoreo de incidencias en tiempo real</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-blue-500 text-center">
+                <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Total Recibidos</p>
+                <span class="text-3xl font-black text-slate-800">342</span>
             </div>
-            <div class="flex gap-4">
-                <button class="bg-white border p-2 rounded-lg hover:bg-gray-50"><i data-lucide="bell" size="20"></i></button>
-                <div class="bg-[#003462] text-white px-4 py-2 rounded-lg flex items-center gap-2 font-bold text-sm">
-                    <i data-lucide="plus-circle" size="18"></i> Nuevo Ticket
-                </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-yellow-500 text-center">
+                <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">En Proceso</p>
+                <span class="text-3xl font-black text-slate-800">14</span>
             </div>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <div class="text-orange-500 mb-2"><i data-lucide="clock"></i></div>
-                <div class="text-2xl font-black text-slate-800">24</div>
-                <div class="text-xs text-slate-400 uppercase font-bold tracking-widest">Pendientes</div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-green-500 text-center">
+                <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Finalizados</p>
+                <span class="text-3xl font-black text-slate-800">318</span>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <div class="text-blue-500 mb-2"><i data-lucide="play-circle"></i></div>
-                <div class="text-2xl font-black text-slate-800">12</div>
-                <div class="text-xs text-slate-400 uppercase font-bold tracking-widest">En Proceso</div>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <div class="text-green-500 mb-2"><i data-lucide="check-circle"></i></div>
-                <div class="text-2xl font-black text-slate-800">158</div>
-                <div class="text-xs text-slate-400 uppercase font-bold tracking-widest">Resueltos Hoy</div>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <div class="text-red-500 mb-2"><i data-lucide="alert-triangle"></i></div>
-                <div class="text-2xl font-black text-slate-800">3</div>
-                <div class="text-xs text-slate-400 uppercase font-bold tracking-widest">Críticos</div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-red-500 text-center">
+                <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Críticos</p>
+                <span class="text-3xl font-black text-slate-800">3</span>
             </div>
         </div>
 
-        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
-            <div class="p-6 border-b flex justify-between items-center bg-slate-50/50">
-                <h3 class="font-bold text-slate-700">Tickets Recientes</h3>
-                <div class="flex gap-2">
-                    <input type="text" placeholder="Buscar..." class="text-sm border rounded-lg px-3 py-1 outline-none focus:ring-1 focus:ring-blue-500">
-                    <button class="text-xs bg-white border px-3 py-1 rounded-lg font-bold">Filtrar</button>
-                </div>
+        <div class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-100">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                <h2 class="font-black text-slate-800 uppercase text-sm tracking-tighter">Estado de solicitudes recientes</h2>
+                <span class="text-[10px] bg-slate-100 px-3 py-1 rounded-full font-bold text-slate-500 uppercase">Actualizado hace un momento</span>
             </div>
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-slate-50 text-slate-400 text-[10px] uppercase font-bold tracking-widest">
-                        <th class="p-4 border-b">ID</th>
-                        <th class="p-4 border-b">Solicitante</th>
-                        <th class="p-4 border-b">Sede</th>
-                        <th class="p-4 border-b">Asunto</th>
-                        <th class="p-4 border-b text-center">Prioridad</th>
-                        <th class="p-4 border-b text-right">Acción</th>
-                    </tr>
-                </thead>
-                <tbody class="text-sm text-slate-600">
-                    <tr class="hover:bg-blue-50/50 transition border-b border-slate-50">
-                        <td class="p-4 font-mono font-bold text-blue-600">#TK-4512</td>
-                        <td class="p-4 font-medium">Ing. Maria Lopez<br><span class="text-[10px] opacity-60">Sec. Académica</span></td>
-                        <td class="p-4">FR Buenos Aires</td>
-                        <td class="p-4 font-semibold">Falla en red Aula 302</td>
-                        <td class="p-4 text-center">
-                            <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-[10px] font-black italic uppercase">Alta</span>
-                        </td>
-                        <td class="p-4 text-right">
-                            <button class="text-[#003462] hover:underline font-bold">Gestionar</button>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-blue-50/50 transition border-b border-slate-50">
-                        <td class="p-4 font-mono font-bold text-blue-600">#TK-4513</td>
-                        <td class="p-4 font-medium">Dr. Pedro Ramos<br><span class="text-[10px] opacity-60">Sec. de Extensión</span></td>
-                        <td class="p-4">Rectorado</td>
-                        <td class="p-4 font-semibold">Acceso VPN bloqueado</td>
-                        <td class="p-4 text-center">
-                            <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-[10px] font-black italic uppercase">Media</span>
-                        </td>
-                        <td class="p-4 text-right">
-                            <button class="text-[#003462] hover:underline font-bold">Gestionar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-slate-50 text-[10px] uppercase font-black text-slate-400 tracking-widest">
+                            <th class="px-6 py-4">ID Ticket</th>
+                            <th class="px-6 py-4">Asunto / Categoría</th>
+                            <th class="px-6 py-4">Usuario</th>
+                            <th class="px-6 py-4">Estado</th>
+                            <th class="px-6 py-4">Técnico</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-xs font-medium text-slate-600">
+                        <tr>
+                            <td class="px-6 py-4">#8912</td>
+                            <td class="px-6 py-4">Falla de Red - Piso 3</td>
+                            <td class="px-6 py-4">Ing. Perez</td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-md font-bold uppercase text-[9px]">En Proceso</span></td>
+                            <td class="px-6 py-4 italic">G. Fernandez</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4">#8911</td>
+                            <td class="px-6 py-4">Actualización Software</td>
+                            <td class="px-6 py-4">Secretaría Acad.</td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-md font-bold uppercase text-[9px]">Finalizado</span></td>
+                            <td class="px-6 py-4 italic">R. Gomez</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4">#8910</td>
+                            <td class="px-6 py-4">Error Base de Datos</td>
+                            <td class="px-6 py-4">Admin. Alumnos</td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 bg-red-100 text-red-700 rounded-md font-bold uppercase text-[9px]">Crítico</span></td>
+                            <td class="px-6 py-4 italic">G. Fernandez</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4">#8909</td>
+                            <td class="px-6 py-4">Reparación Monitor</td>
+                            <td class="px-6 py-4">Biblioteca</td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-md font-bold uppercase text-[9px]">Finalizado</span></td>
+                            <td class="px-6 py-4 italic">M. Lopez</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </main>
 
-    <script>lucide.createIcons();</script>
+    <script>
+        lucide.createIcons();
+
+        function irAlDashboard() {
+            const params = new URLSearchParams(window.location.search);
+            const role = params.get('role') || 'admin';
+            window.location.href = "dashboard.html?role=" + role;
+        }
+    </script>
 </body>
 </html>
