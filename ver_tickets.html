@@ -2,99 +2,118 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soporte UTN - Mis Tickets</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .ticket-card { 
+            background: white; 
+            border-radius: 16px; 
+            transition: all 0.2s; 
+            border: 1px solid #e2e8f0;
+        }
+        .ticket-card:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
+        }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen">
-<div class="fixed top-4 right-4 flex gap-2 z-50">
-    <button onclick="volverDashboard()" class="w-12 h-12 bg-white text-[#003462] rounded-full shadow-xl flex items-center justify-center hover:bg-slate-100 transition-all border border-slate-200" title="Volver al Dashboard">
-        <i data-lucide="arrow-left"></i>
-    </button>
-    
-    <a href="index.html" class="w-12 h-12 bg-red-600 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-red-700 transition-all" title="Cerrar Sesión">
-        <i data-lucide="log-out"></i>
-    </a>
-</div>
+<body class="min-h-screen pb-10">
 
-<script>
-    function volverDashboard() {
-        // Detecta el rol actual de la URL para no perderlo al volver
-        const params = new URLSearchParams(window.location.search);
-        const role = params.get('role') || params.get('user'); // Soporta ambos nombres de parámetro
+    <div class="fixed top-4 right-4 flex gap-3 z-50">
+        <button onclick="volverAlDashboard()" class="w-12 h-12 bg-white text-[#003462] rounded-full shadow-xl flex items-center justify-center border border-slate-200 hover:bg-slate-50 transition-all" title="Volver">
+            <i data-lucide="arrow-left"></i>
+        </button>
+        <a href="index.html" class="w-12 h-12 bg-red-600 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-red-700 transition-all" title="Salir">
+            <i data-lucide="log-out"></i>
+        </a>
+    </div>
+
+    <header class="bg-[#003462] text-white pt-12 pb-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center gap-3 mb-2">
+                <i data-lucide="list-checks" class="text-orange-400"></i>
+                <h1 class="text-3xl font-black uppercase tracking-tighter italic">Mis Solicitudes</h1>
+            </div>
+            <p class="text-blue-100/60 text-xs font-bold uppercase tracking-widest">Seguimiento de incidentes reportados</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 -mt-10 space-y-4">
         
-        if (role) {
-            window.location.href = "dashboard.html?role=" + role;
-        } else {
-            // Si por alguna razón no hay rol, vuelve al dashboard limpio o al login
-            window.location.href = "dashboard.html";
-        }
-    }
-    // Asegurar que los iconos se carguen
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
-</script>
-    <nav class="bg-[#003462] p-4 text-white">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <a href="dashboard.html" class="hover:bg-white/10 p-2 rounded-lg"><i data-lucide="arrow-left"></i></a>
-                <h1 class="font-bold uppercase tracking-tight">Mis Tickets</h1>
+        <div class="ticket-card p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="flex-1">
+                <div class="flex items-center gap-3 mb-1">
+                    <span class="text-[10px] font-black text-slate-400">#8912</span>
+                    <span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-[10px] font-bold uppercase">En Proceso</span>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">Falla de conexión Wi-Fi - Aula 204</h3>
+                <p class="text-slate-500 text-sm mt-1">La señal se corta intermitentemente durante las clases magistrales.</p>
+                <div class="flex items-center gap-4 mt-4 text-[11px] font-bold text-slate-400 uppercase">
+                    <span class="flex items-center gap-1"><i data-lucide="calendar" size="14"></i> 24/10/2023</span>
+                    <span class="flex items-center gap-1"><i data-lucide="tag" size="14"></i> Redes</span>
+                </div>
             </div>
-            <span class="text-[10px] font-bold bg-green-500/20 px-3 py-1 rounded-full border border-green-500/50">CONECTADO</span>
-        </div>
-    </nav>
-
-    <main class="max-w-5xl mx-auto p-6 md:p-12">
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
-            <div class="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                <h2 class="text-sm font-black text-slate-800 uppercase tracking-widest">Historial de Incidentes</h2>
-                <span class="text-[10px] text-slate-400 font-bold">USUARIO: <span id="userName">Cargando...</span></span>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead class="bg-slate-50 text-[10px] uppercase font-bold text-slate-500">
-                        <tr>
-                            <th class="px-6 py-4 tracking-widest">ID Ticket</th>
-                            <th class="px-6 py-4 tracking-widest">Asunto</th>
-                            <th class="px-6 py-4 tracking-widest">Fecha</th>
-                            <th class="px-6 py-4 tracking-widest text-center">Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm divide-y divide-slate-100">
-                        <tr class="hover:bg-slate-50 transition-colors cursor-pointer">
-                            <td class="px-6 py-4 font-bold text-blue-900">REC-20231024-0042</td>
-                            <td class="px-6 py-4 font-medium">Problema con conexión VPN Rectorado</td>
-                            <td class="px-6 py-4 text-slate-400">24 Oct 2023</td>
-                            <td class="px-6 py-4 text-center">
-                                <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-1 rounded-md uppercase">En Proceso</span>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors cursor-pointer">
-                            <td class="px-6 py-4 font-bold text-blue-900">REC-20231020-0015</td>
-                            <td class="px-6 py-4 font-medium">Falla en acceso a servidor de archivos</td>
-                            <td class="px-6 py-4 text-slate-400">20 Oct 2023</td>
-                            <td class="px-6 py-4 text-center">
-                                <span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md uppercase">Resuelto</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="p-6 bg-slate-50 text-center">
-                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Fin del listado de incidentes</p>
+            <div class="w-full md:w-auto">
+                <a href="detalle_ticket.html?id=8912&role=usuario" class="block w-full md:w-auto px-6 py-2 bg-[#003462] text-white text-center rounded-lg text-xs font-bold hover:bg-blue-800 transition-colors uppercase shadow-md">
+                    Ver Detalles
+                </a>
             </div>
         </div>
+
+        <div class="ticket-card p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-l-4 border-green-500">
+            <div class="flex-1">
+                <div class="flex items-center gap-3 mb-1">
+                    <span class="text-[10px] font-black text-slate-400">#8850</span>
+                    <span class="px-2 py-0.5 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase">Resuelto</span>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">Instalación de Software Estadístico</h3>
+                <p class="text-slate-500 text-sm mt-1">Solicitud de instalación de SPSS en el Laboratorio C.</p>
+                <div class="flex items-center gap-4 mt-4 text-[11px] font-bold text-slate-400 uppercase">
+                    <span class="flex items-center gap-1"><i data-lucide="calendar" size="14"></i> 15/10/2023</span>
+                    <span class="flex items-center gap-1"><i data-lucide="tag" size="14"></i> Software</span>
+                </div>
+            </div>
+            <div class="w-full md:w-auto">
+                <a href="detalle_ticket.html?id=8850&role=usuario" class="block w-full md:w-auto px-6 py-2 bg-slate-100 text-slate-600 text-center rounded-lg text-xs font-bold uppercase hover:bg-slate-200">
+                    Ver Historial
+                </a>
+            </div>
+        </div>
+
+        <div class="ticket-card p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="flex-1">
+                <div class="flex items-center gap-3 mb-1">
+                    <span class="text-[10px] font-black text-slate-400">#8930</span>
+                    <span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-[10px] font-bold uppercase">Abierto</span>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">Tonner agotado - Departamento Alumnos</h3>
+                <p class="text-slate-500 text-sm mt-1">La impresora central no tiene tinta para imprimir actas.</p>
+                <div class="flex items-center gap-4 mt-4 text-[11px] font-bold text-slate-400 uppercase">
+                    <span class="flex items-center gap-1"><i data-lucide="calendar" size="14"></i> Hoy, 09:15</span>
+                    <span class="flex items-center gap-1"><i data-lucide="tag" size="14"></i> Hardware</span>
+                </div>
+            </div>
+            <div class="w-full md:w-auto">
+                <a href="detalle_ticket.html?id=8930&role=usuario" class="block w-full md:w-auto px-6 py-2 bg-[#003462] text-white text-center rounded-lg text-xs font-bold hover:bg-blue-800 transition-colors uppercase shadow-md">
+                    Ver Detalles
+                </a>
+            </div>
+        </div>
+
     </main>
 
     <script>
         lucide.createIcons();
-        document.getElementById('userName').textContent = localStorage.getItem('userRole') || 'Invitado';
+
+        function volverAlDashboard() {
+            const params = new URLSearchParams(window.location.search);
+            const role = params.get('role') || 'usuario';
+            window.location.href = "dashboard.html?role=" + role;
+        }
     </script>
 </body>
 </html>

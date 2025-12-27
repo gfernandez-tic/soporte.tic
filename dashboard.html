@@ -10,39 +10,60 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
         
-        .grid-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-            gap: 25px; 
-            max-width: 1100px; 
+        /* Contenedor vertical */
+        .stack-container { 
+            max-width: 850px; 
             margin: 40px auto; 
-            padding: 0 20px; 
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        .btn-card { 
-            padding: 50px 20px; 
-            border-radius: 24px; 
-            text-align: center; 
-            color: white; 
-            text-decoration: none; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
+        /* Estilo de la fila de funcionalidad */
+        .feature-row {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            gap: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-row:hover {
+            transform: translateX(10px);
+            border-color: #cbd5e1;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border: 2px solid transparent;
         }
 
-        .btn-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-            border-color: rgba(255,255,255,0.3);
+        /* Botón dentro de la fila */
+        .btn-action {
+            min-width: 200px;
+            padding: 18px;
+            border-radius: 15px;
+            color: white;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.85rem;
         }
 
-        .btn-card i { margin-bottom: 15px; }
+        /* Cuadro de texto explicativo */
+        .description-box {
+            flex: 1;
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            border-left: 2px solid #e2e8f0;
+            padding-left: 20px;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -50,114 +71,75 @@
     <nav class="bg-[#003462] text-white p-4 shadow-xl sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="bg-white/10 p-2 rounded-xl">
-                    <i data-lucide="shield-check"></i>
-                </div>
-                <div>
-                    <h1 class="font-black tracking-tighter uppercase text-lg leading-none">Secretaría TIC</h1>
-                    <p class="text-[9px] uppercase tracking-widest opacity-60">Rectorado UTN</p>
-                </div>
+                <div class="bg-white/10 p-2 rounded-xl"><i data-lucide="shield-check"></i></div>
+                <h1 class="font-black tracking-tighter uppercase text-lg">UTN - Gestión TIC</h1>
             </div>
-
             <div class="flex items-center gap-4">
-                <div id="roleBadge" class="hidden sm:block text-[10px] px-4 py-1.5 rounded-full font-black uppercase tracking-wider shadow-inner">
-                    Cargando Sesión...
-                </div>
-
-                <a href="index.html" 
-                   class="w-11 h-11 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:rotate-90" 
-                   title="Cerrar Sesión">
-                    <i data-lucide="log-out" size="20"></i>
-                </a>
+                <div id="roleBadge" class="hidden sm:block text-[10px] px-4 py-1.5 rounded-full font-black uppercase tracking-wider"></div>
+                <a href="index.html" class="w-11 h-11 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-lg transition-all"><i data-lucide="log-out" size="20"></i></a>
             </div>
         </div>
     </nav>
 
-    <header class="text-center mt-12 mb-6">
-        <h2 class="text-slate-800 text-3xl font-black uppercase tracking-tighter">Panel de Gestión</h2>
-        <p class="text-slate-500 text-sm">Seleccione la operación que desea realizar</p>
+    <header class="text-center mt-10 mb-2">
+        <h2 class="text-slate-800 text-2xl font-black uppercase tracking-tighter italic">Panel de Operaciones</h2>
+        <p class="text-slate-500 text-sm">Seleccione una función para comenzar</p>
     </header>
 
-    <div id="mainGrid" class="grid-container">
-        </div>
-
-    <footer class="mt-20 pb-10 text-center">
-        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">© 2025 Universidad Tecnológica Nacional</p>
-    </footer>
+    <div id="mainStack" class="stack-container"></div>
 
     <script>
-        // Inicializar Iconos
-        lucide.createIcons();
-
-        // 1. Capturar Rol de la URL
         const urlParams = new URLSearchParams(window.location.search);
         const role = urlParams.get('role');
-        
-        const grid = document.getElementById('mainGrid');
+        const stack = document.getElementById('mainStack');
         const badge = document.getElementById('roleBadge');
 
-        // Limpieza de seguridad
-        grid.innerHTML = "";
+        stack.innerHTML = "";
 
-        // 2. Lógica de construcción de interfaz
         if (role === 'admin') {
-            // Configurar Badge Admin
             badge.innerText = "ADMINISTRADOR";
-            badge.className = "hidden sm:block text-[10px] px-4 py-1.5 rounded-full font-black uppercase tracking-wider bg-red-800 text-white";
+            badge.classList.add("bg-red-800", "text-white");
 
-            // BOTÓN 1: ROJO - Crear Ticket
-            grid.innerHTML += `
-                <a href="ingreso.html?role=admin" class="btn-card" style="background-color: #dc2626;">
-                    <i data-lucide="plus-circle" size="40"></i>
-                    <span>Crear Ticket</span>
-                </a>`;
+            // Fila 1: Crear
+            renderRow("#dc2626", "plus-circle", "Crear Ticket", "Apertura de nuevas solicitudes técnicas reportadas por personal docente o no docente.", "ingreso.html?role=admin");
             
-            // BOTÓN 2: AZUL - Asignar Ticket
-            grid.innerHTML += `
-                <a href="gestion_tkt.html?role=admin" class="btn-card" style="background-color: #2563eb;">
-                    <i data-lucide="user-plus" size="40"></i>
-                    <span>Asignar Ticket</span>
-                </a>`;
+            // Fila 2: Asignar
+            renderRow("#2563eb", "user-plus", "Asignar Ticket", "Derivación de reclamos abiertos a técnicos especialistas según el área afectada.", "gestion_tkt.html?role=admin");
             
-            // BOTÓN 3: VERDE - Gestión Ticket (Tratamiento)
-            grid.innerHTML += `
-                <a href="tratamiento.html?role=admin" class="btn-card" style="background-color: #16a34a;">
-                    <i data-lucide="clipboard-check" size="40"></i>
-                    <span>Gestión Ticket</span>
-                </a>`;
+            // Fila 3: Gestión
+            renderRow("#16a34a", "clipboard-check", "Gestión Ticket", "Acceso al tratamiento técnico, diagnóstico y resolución final de incidentes.", "tratamiento.html?role=admin");
             
-            // BOTÓN 4: NEGRO - Panel de Control
-            grid.innerHTML += `
-                <a href="Panel.html?role=admin" class="btn-card" style="background-color: #000000;">
-                    <i data-lucide="bar-chart-3" size="40"></i>
-                    <span>Panel de Control</span>
-                </a>`;
+            // Fila 4: Panel
+            renderRow("#000000", "bar-chart-3", "Panel Control", "Visualización de métricas críticas, estados generales y rendimiento de la Secretaría.", "Panel.html?role=admin");
 
         } else if (role === 'usuario') {
-            // Configurar Badge Usuario
             badge.innerText = "USUARIO FINAL";
-            badge.className = "hidden sm:block text-[10px] px-4 py-1.5 rounded-full font-black uppercase tracking-wider bg-green-700 text-white";
+            badge.classList.add("bg-green-700", "text-white");
 
-            // BOTÓN 1: ROJO - Crear Ticket
-            grid.innerHTML += `
-                <a href="ingreso.html?role=usuario" class="btn-card" style="background-color: #dc2626;">
-                    <i data-lucide="plus-circle" size="40"></i>
-                    <span>Crear Ticket</span>
-                </a>`;
+            // Fila 1: Crear
+            renderRow("#dc2626", "plus-circle", "Crear Ticket", "Formulario para reportar incidentes de hardware, software o problemas de conectividad.", "ingreso.html?role=usuario");
             
-            // BOTÓN 2: NARANJA - Ver Mis Tickets
-            grid.innerHTML += `
-                <a href="ver_tickets.html?role=usuario" class="btn-card" style="background-color: #f97316;">
-                    <i data-lucide="search" size="40"></i>
-                    <span>Ver Mis Tickets</span>
-                </a>`;
-
+            // Fila 2: Ver
+            renderRow("#f97316", "search", "Ver Mis Tickets", "Consulta el estado actual y el historial de todas tus solicitudes enviadas.", "ver_tickets.html?role=usuario");
         } else {
-            // Si no hay rol válido, expulsar al login
             window.location.href = "index.html";
         }
 
-        // Renderizar iconos nuevamente para los elementos inyectados
+        // Función para renderizar filas dinámicamente
+        function renderRow(color, icon, title, desc, link) {
+            stack.innerHTML += `
+                <div class="feature-row">
+                    <a href="${link}" class="btn-action" style="background-color: ${color}">
+                        <i data-lucide="${icon}" size="22"></i>
+                        ${title}
+                    </a>
+                    <div class="description-box">
+                        <p>${desc}</p>
+                    </div>
+                </div>
+            `;
+        }
+
         lucide.createIcons();
     </script>
 </body>
