@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soporte UTN - Detalle Técnico</title>
+    <title>Soporte UTN - Detalle y Comunicación</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -24,84 +24,94 @@
         </a>
     </div>
 
-    <header class="bg-[#003462] text-white pt-12 pb-24 px-6 text-center md:text-left">
+    <header class="bg-[#003462] text-white pt-12 pb-24 px-6">
         <div class="max-w-3xl mx-auto">
-            <div class="flex items-center justify-center md:justify-start gap-2 mb-2 text-blue-300 font-bold text-[10px] uppercase tracking-[0.2em]">
-                <i data-lucide="hash" size="14"></i> TICKET <span id="id-label">0000</span>
+            <div class="flex items-center gap-2 mb-2 text-blue-300 font-bold text-[10px] uppercase tracking-widest">
+                <i data-lucide="message-square" size="14"></i> HISTORIAL BIDIRECTONAL - TICKET #<span id="id-label">0000</span>
             </div>
-            <h1 id="titulo-tkt" class="text-3xl font-black uppercase tracking-tighter italic italic">Cargando...</h1>
+            <h1 id="titulo-tkt" class="text-3xl font-black uppercase tracking-tighter italic">Cargando...</h1>
         </div>
     </header>
 
     <main class="max-w-3xl mx-auto px-6 -mt-12">
         <div class="bg-white rounded-3xl p-8 shadow-xl mb-6 border border-slate-100">
-            <h3 class="text-[10px] font-black text-slate-400 uppercase mb-3 tracking-widest">Descripción del Usuario</h3>
-            <p id="desc-tkt" class="text-slate-700 leading-relaxed font-medium"></p>
+            <h3 class="text-[10px] font-black text-slate-400 uppercase mb-3 tracking-widest">Apertura del Ticket</h3>
+            <p id="desc-tkt" class="text-slate-700 leading-relaxed font-medium italic"></p>
         </div>
 
-        <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
-            <h3 class="text-[10px] font-black text-slate-400 uppercase mb-8 tracking-widest border-b pb-4 italic">Intervenciones Registradas</h3>
-            <div id="timeline-container">
-                </div>
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 mb-6">
+            <h3 class="text-[10px] font-black text-slate-400 uppercase mb-8 tracking-widest border-b pb-4">Intercambio de Mensajes</h3>
+            <div id="timeline-container"></div>
+
+            <div class="mt-8 pt-6 border-t border-slate-100">
+                <label class="block text-[10px] font-black text-slate-400 uppercase mb-3 tracking-widest">Añadir respuesta al Equipo Técnico</label>
+                <textarea id="nuevo-comentario" rows="3" class="w-full p-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm text-slate-600 mb-3" placeholder="Escriba aquí sus dudas o información adicional..."></textarea>
+                <button onclick="enviarMensaje()" class="flex items-center gap-2 bg-[#003462] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-blue-800 transition-all shadow-md">
+                    <i data-lucide="send" size="16"></i> Enviar actualización
+                </button>
+            </div>
         </div>
     </main>
 
     <script>
-        // DATOS DIFERENCIADOS PARA CADA TICKET
         const baseDeDatos = {
             "8912": {
                 titulo: "Falla Wi-Fi - Aula 204",
-                descripcion: "Conexión inestable durante el dictado de clases. Los dispositivos pierden sincronización constantemente.",
+                descripcion: "Inestabilidad en la conexión durante el dictado. El proyector pierde sincronización.",
                 pasos: [
-                    { fecha: "24/10/2023 09:10", autor: "EQUIPO TÉCNICO", msg: "Ticket recibido. Se inicia monitoreo de tráfico en el nodo correspondiente.", color: "bg-blue-500" },
-                    { fecha: "24/10/2023 11:30", autor: "EQUIPO TÉCNICO", msg: "Se detectó interferencia en el canal. Se procede a reconfigurar frecuencias.", color: "bg-amber-500" },
-                    { fecha: "24/10/2023 14:45", autor: "EQUIPO TÉCNICO", msg: "Configuración aplicada. Estabilidad verificada en sitio.", color: "bg-green-500" }
-                ]
-            },
-            "8850": {
-                titulo: "Instalación SPSS - Lab C",
-                descripcion: "Se requiere software estadístico para el laboratorio de computación por examen final.",
-                pasos: [
-                    { fecha: "15/10/2023 08:30", autor: "EQUIPO TÉCNICO", msg: "Solicitud validada. Se descarga imagen oficial del software.", color: "bg-blue-500" },
-                    { fecha: "15/10/2023 13:00", autor: "EQUIPO TÉCNICO", msg: "Instalación masiva completada en todas las terminales. Licencias activadas.", color: "bg-green-500" }
-                ]
-            },
-            "8930": {
-                titulo: "Insumos - Depto. Alumnos",
-                descripcion: "Urgente: La impresora central se quedó sin toner negro.",
-                pasos: [
-                    { fecha: "Hoy 09:15", autor: "EQUIPO TÉCNICO", msg: "Ticket en espera. Se solicitó el retiro de insumo del depósito central.", color: "bg-red-500" }
+                    { fecha: "24/10/2023 09:10", autor: "SISTEMA", msg: "Ticket recibido y enviado a soporte@rec.unt.edu.ar", color: "bg-slate-400" },
+                    { fecha: "24/10/2023 11:30", autor: "EQUIPO TÉCNICO", msg: "Estimado, ¿el problema persiste con un solo dispositivo o con varios?", color: "bg-blue-500" },
+                    { fecha: "24/10/2023 12:15", autor: "USUARIO (Usted)", msg: "Ocurre con todas las notebooks de los alumnos y la PC del docente.", color: "bg-slate-200" },
+                    { fecha: "24/10/2023 14:45", autor: "EQUIPO TÉCNICO", msg: "Entendido. Se notificó al área de Redes mediante reponsableredinterna@rec.utn.edu.ar para revisión de access point.", color: "bg-amber-500" }
                 ]
             }
         };
 
-        // Lógica para detectar qué ticket mostrar
         const params = new URLSearchParams(window.location.search);
-        const idUrl = params.get('id');
-        
-        // Si el ID existe en nuestra base, lo usamos. Si no, usamos el 8912 por defecto.
+        const idUrl = params.get('id') || "8912";
         const tkt = baseDeDatos[idUrl] || baseDeDatos["8912"];
 
-        // Inyectar en el HTML
-        document.getElementById('id-label').innerText = idUrl || "8912";
+        document.getElementById('id-label').innerText = idUrl;
         document.getElementById('titulo-tkt').innerText = tkt.titulo;
         document.getElementById('desc-tkt').innerText = tkt.descripcion;
 
-        const container = document.getElementById('timeline-container');
-        container.innerHTML = ""; // Limpiar antes de llenar
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = "";
+            tkt.pasos.forEach(p => {
+                const isUser = p.autor.includes("USUARIO");
+                container.innerHTML += `
+                    <div class="timeline-item">
+                        <div class="timeline-dot ${p.color}"></div>
+                        <div class="text-[9px] font-bold text-slate-400 uppercase mb-1">${p.fecha}</div>
+                        <div class="text-[11px] font-black ${isUser ? 'text-slate-500' : 'text-[#003462]'} mb-2 uppercase italic">${p.autor}</div>
+                        <div class="text-sm text-slate-600 ${isUser ? 'bg-white' : 'bg-slate-50'} p-4 rounded-2xl border border-slate-100 shadow-sm">${p.msg}</div>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
 
-        tkt.pasos.forEach(p => {
-            container.innerHTML += `
-                <div class="timeline-item">
-                    <div class="timeline-dot ${p.color}"></div>
-                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">${p.fecha}</div>
-                    <div class="text-[11px] font-black text-[#003462] mb-2 uppercase tracking-tight italic">${p.autor}</div>
-                    <div class="text-sm text-slate-600 bg-slate-50 p-4 rounded-2xl border border-slate-100 shadow-sm">${p.msg}</div>
-                </div>
-            `;
-        });
+        function enviarMensaje() {
+            const txt = document.getElementById('nuevo-comentario');
+            if(txt.value.trim() === "") return;
 
-        lucide.createIcons();
+            const ahora = new Date();
+            const fechaStr = ahora.toLocaleDateString() + " " + ahora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            tkt.pasos.push({
+                fecha: fechaStr,
+                autor: "USUARIO (Usted)",
+                msg: txt.value,
+                color: "bg-slate-200"
+            });
+
+            txt.value = "";
+            renderTimeline();
+            alert("Su comentario ha sido enviado al equipo técnico y notificado por correo.");
+        }
+
+        renderTimeline();
     </script>
 </body>
 </html>
